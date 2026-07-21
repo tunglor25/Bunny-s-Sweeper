@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Body -->
+  <path d="M20 90 C20 40 80 40 80 90 Z" fill="#4b5563" />
+  <!-- Snout -->
+  <ellipse cx="50" cy="70" rx="15" ry="10" fill="#fca5a5" />
+  <!-- Nose -->
+  <circle cx="50" cy="68" r="4" fill="#ef4444" />
+  <!-- Eyes (small/closed for mole) -->
+  <line x1="35" y1="55" x2="40" y2="60" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
+  <line x1="65" y1="55" x2="60" y2="60" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
+  <!-- Little paws -->
+  <circle cx="30" cy="85" r="8" fill="#d1d5db" />
+  <circle cx="70" cy="85" r="8" fill="#d1d5db" />
+  <path d="M26 88 L34 88 M28 84 L32 84" stroke="#4b5563" stroke-width="2"/>
+  <path d="M66 88 L74 88 M68 84 L72 84" stroke="#4b5563" stroke-width="2"/>
+  <!-- Miner Hat -->
+  <path d="M25 45 Q50 20 75 45 Z" fill="#facc15" />
+  <ellipse cx="50" cy="45" rx="25" ry="5" fill="#eab308" />
+  <circle cx="50" cy="35" r="10" fill="#fef08a" />
+</svg>

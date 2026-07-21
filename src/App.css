@@ -1,0 +1,376 @@
+/* App.css */
+.app-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Nunito', sans-serif;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 60px; /* Space for AdMob Banner */
+}
+
+/* Glassmorphism utility */
+/* Splash Screen */
+.splash-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  z-index: 9999;
+}
+
+.studio-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-bar {
+  width: 200px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.loading-progress {
+  width: 0%;
+  height: 100%;
+  background-color: var(--color-primary);
+  animation: load 2s ease-in-out forwards;
+}
+
+@keyframes load {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* Screens */
+.screen-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.logo-text {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  text-shadow: 2px 4px 0px rgba(0,0,0,0.1);
+  text-align: center;
+  margin-bottom: 50px;
+  line-height: 1.1;
+}
+
+/* Main Menu Buttons */
+.menu-btn {
+  width: 100%;
+  max-width: 350px;
+  height: 120px;
+  border: none;
+  border-radius: 24px;
+  margin-bottom: 25px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.menu-btn:active {
+  transform: scale(0.95);
+  filter: brightness(0.9);
+}
+
+.menu-btn-text {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: white;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 2;
+}
+
+.menu-btn-practice {
+  background-color: #34d399; /* Mint Green */
+  box-shadow: 0 12px 25px rgba(52, 211, 153, 0.5);
+}
+
+.menu-btn-normal {
+  background-color: #fbbf24; /* Yellow Gold */
+  box-shadow: 0 12px 25px rgba(251, 191, 36, 0.5);
+}
+
+.menu-btn-hard {
+  background-color: #fb7185; /* Pink Red */
+  box-shadow: 0 12px 25px rgba(251, 113, 133, 0.5);
+}
+
+.menu-btn-mascot {
+  position: absolute;
+  bottom: -15px;
+  left: -10px;
+  width: 90px;
+  height: 90px;
+  transform: rotate(-15deg);
+  z-index: 1;
+  /* Nếu là ảnh có màu, ta có thể dùng độ sáng hoặc CSS filter để làm nó thành trắng, 
+     nhưng dùng luôn ảnh màu cũng rất dễ thương! */
+}
+
+/* Bottom Pills */
+.bottom-pill-container {
+  display: flex;
+  gap: 15px;
+  position: absolute;
+  bottom: 90px;
+}
+
+.bottom-pill {
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.bottom-pill:active { transform: scale(0.9); }
+
+.pill-leaderboard {
+  background-color: #fce7f3;
+  color: #f472b6;
+}
+.pill-rules {
+  background-color: #f3f4f6;
+  color: #9ca3af;
+}
+
+.game-stage-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #5c3a21; /* Deep wood background behind gaps */
+  padding: 12px;
+  border-radius: 20px;
+  /* 3D Wood Border Effect */
+  border-top: 8px solid #8b5733;
+  border-left: 8px solid #7a4b2a;
+  border-right: 8px solid #4a2e1a;
+  border-bottom: 8px solid #382314;
+  box-shadow: 
+    0 20px 30px rgba(0, 0, 0, 0.4), 
+    inset 0 4px 10px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.btn-icon {
+  background: var(--color-modal);
+  border: 1px solid var(--color-glass-border);
+  color: var(--color-text);
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+}
+.btn-icon:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+}
+
+/* Header */
+.game-header {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  margin-bottom: 5px;
+}
+
+.stats-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-text);
+  padding: 8px 16px;
+}
+
+/* Mascot Rabbit */
+.mascot-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto 15px auto;
+  gap: 15px;
+}
+
+.mascot-img {
+  height: 85px;
+  width: 85px;
+  object-fit: contain;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 3px solid #fbcfe8;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: floatMascot 3s ease-in-out infinite;
+}
+
+.speech-bubble {
+  flex: 1;
+  padding: 12px 15px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-text);
+  border-radius: 20px;
+  border-bottom-left-radius: 4px; /* Tạo kiểu mũi nhọn chĩa về con thỏ */
+  text-align: left;
+}
+
+@keyframes floatMascot {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Modals */
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  width: 85%;
+  max-width: 340px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* iOS Toggle Switch */
+.switch-ios {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+.switch-ios input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider-ios {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+.slider-ios:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+input:checked + .slider-ios {
+  background-color: #22c55e;
+}
+input:checked + .slider-ios:before {
+  transform: translateX(26px);
+}
+
+/* Cute Buttons */
+.btn-primary, .btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s, filter 0.1s;
+  width: 100%;
+}
+
+.btn-primary:active, .btn-secondary:active {
+  transform: translateY(4px);
+  filter: brightness(0.9);
+  box-shadow: 0 0px 0 rgba(0,0,0,0.1) !important;
+}
+
+.btn-secondary {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  box-shadow: 0 4px 0 #d1d5db;
+}
+
+.btn-primary {
+  color: white;
+}
+
+/* Animations for RulesModal Tutorial */
+@keyframes tapAnim {
+  0% { transform: translate(20px, 20px) scale(1); opacity: 0; }
+  30% { transform: translate(-20%, -20%) scale(1); opacity: 1; }
+  50% { transform: translate(-20%, -20%) scale(0.8); opacity: 1; }
+  70% { transform: translate(-20%, -20%) scale(1); opacity: 1; }
+  100% { transform: translate(-20%, -20%) scale(1); opacity: 0; }
+}
+
+@keyframes longPressAnim {
+  0% { transform: translate(20px, 20px) scale(1); opacity: 0; }
+  20% { transform: translate(-20%, -20%) scale(1); opacity: 1; }
+  30% { transform: translate(-20%, -20%) scale(0.8); opacity: 1; }
+  70% { transform: translate(-20%, -20%) scale(0.8); opacity: 1; }
+  80% { transform: translate(-20%, -20%) scale(1); opacity: 1; }
+  100% { transform: translate(-20%, -20%) scale(1); opacity: 0; }
+}
