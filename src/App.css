@@ -180,7 +180,7 @@ body.dark-mode .screen-container {
   left: -20px;
   bottom: -15px;
   background-image: url('/3_tho_3nut.png');
-  background-size: 300% 100%;
+  background-size: auto 100%;
   background-repeat: no-repeat;
   z-index: 1;
 }
