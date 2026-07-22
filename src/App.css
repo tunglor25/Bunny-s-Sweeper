@@ -179,15 +179,15 @@ body.dark-mode .screen-container {
   position: absolute;
   left: -20px;
   bottom: -15px;
-  background-image: url('/3_tho_3nut.png');
-  background-size: auto 100%;
+  background-size: contain;
   background-repeat: no-repeat;
+  background-position: center bottom;
   z-index: 1;
 }
 
-.practice-mascot { background-position: 0% center; }
-.normal-mascot { background-position: 50% center; }
-.hard-mascot { background-position: 100% center; }
+.practice-mascot { background-image: url('/nut1.png'); }
+.normal-mascot { background-image: url('/nut2.png'); }
+.hard-mascot { background-image: url('/nut3.png'); }
 
 /* Bottom Pills */
 .bottom-pill-container {
