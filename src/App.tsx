@@ -9,65 +9,6 @@ import type { BannerAdOptions, RewardAdOptions } from '@capacitor-community/admo
 import { translations, languages } from './translations';
 import type { LangCode } from './translations';
 type TranslationKey = keyof typeof translations['en'];
-// --- SVG Mascot Component ---
-const BunnyFace = ({ expression, color }: { expression: 'happy' | 'neutral' | 'intense', color: string }) => {
-  return (
-    <svg 
-      viewBox="0 0 100 100" 
-      width="100" 
-      height="100" 
-      style={{ 
-        position: 'absolute', 
-        bottom: '-15px', 
-        left: '-15px', 
-        transform: 'rotate(15deg)', 
-        fill: 'white' 
-      }}
-    >
-      {/* Ears */}
-      <ellipse cx="30" cy="28" rx="14" ry="28" transform="rotate(-15 30 28)" />
-      <ellipse cx="70" cy="28" rx="14" ry="28" transform="rotate(15 70 28)" />
-      {/* Head */}
-      <circle cx="50" cy="65" r="42" />
-      
-      {/* Face details drawn with the button's background color to look 'cut out' */}
-      {expression === 'happy' && (
-        <g stroke={color} strokeWidth="4.5" fill="none" strokeLinecap="round">
-          {/* ^ ^ eyes */}
-          <path d="M 32 58 Q 38 48 44 58" />
-          <path d="M 56 58 Q 62 48 68 58" />
-          {/* nose/mouth */}
-          <path d="M 45 68 Q 50 72 55 68" />
-          <circle cx="50" cy="65" r="2.5" fill={color} stroke="none" />
-        </g>
-      )}
-      {expression === 'neutral' && (
-        <g stroke={color} strokeWidth="4.5" fill="none" strokeLinecap="round">
-          {/* - - eyes */}
-          <line x1="32" y1="58" x2="44" y2="58" />
-          <line x1="56" y1="58" x2="68" y2="58" />
-          {/* flat mouth */}
-          <line x1="46" y1="70" x2="54" y2="70" strokeWidth="3" />
-        </g>
-      )}
-      {expression === 'intense' && (
-        <g stroke={color} strokeWidth="4.5" fill="none">
-          {/* Wide open eyes */}
-          <circle cx="38" cy="58" r="4.5" fill={color} />
-          <circle cx="62" cy="58" r="4.5" fill={color} />
-          {/* Open mouth */}
-          <circle cx="50" cy="72" r="3.5" fill="none" strokeWidth="3" />
-          {/* Angry eyebrows */}
-          <line x1="30" y1="48" x2="42" y2="53" strokeLinecap="round" />
-          <line x1="70" y1="48" x2="58" y2="53" strokeLinecap="round" />
-          {/* Red cheeks */}
-          <circle cx="28" cy="68" r="7" fill="#fca5a5" stroke="none" />
-          <circle cx="72" cy="68" r="7" fill="#fca5a5" stroke="none" />
-        </g>
-      )}
-    </svg>
-  );
-};
 
 const RulesModal = ({ onClose, t }: { onClose: () => void, t: (key: TranslationKey) => string }) => {
   const [slide, setSlide] = useState(0);
@@ -493,9 +434,7 @@ function App() {
           </div>
 
           <button className="menu-btn menu-btn-practice" onClick={() => startGame(9, 9, 10)}>
-            <div className="menu-btn-mascot">
-              <BunnyFace expression="happy" color="#10b981" />
-            </div>
+            <div className="menu-btn-mascot practice-mascot"></div>
             <div className="menu-btn-text-container">
               <span className="menu-btn-text">{t('practice')}</span>
               <div className="menu-btn-divider"><span className="menu-btn-carrot">🥕</span></div>
@@ -504,9 +443,7 @@ function App() {
           </button>
           
           <button className="menu-btn menu-btn-normal" onClick={() => startGame(12, 16, 30)}>
-            <div className="menu-btn-mascot">
-              <BunnyFace expression="neutral" color="#f59e0b" />
-            </div>
+            <div className="menu-btn-mascot normal-mascot"></div>
             <div className="menu-btn-text-container">
               <span className="menu-btn-text">{t('normal')}</span>
               <div className="menu-btn-divider"><span className="menu-btn-carrot">🥕</span></div>
@@ -515,9 +452,7 @@ function App() {
           </button>
 
           <button className="menu-btn menu-btn-hard" onClick={() => startGame(16, 24, 70)}>
-            <div className="menu-btn-mascot">
-              <BunnyFace expression="intense" color="#e11d48" />
-            </div>
+            <div className="menu-btn-mascot hard-mascot"></div>
             <div className="menu-btn-text-container">
               <span className="menu-btn-text">{t('hard')}</span>
               <div className="menu-btn-divider"><span className="menu-btn-carrot">🥕</span></div>
