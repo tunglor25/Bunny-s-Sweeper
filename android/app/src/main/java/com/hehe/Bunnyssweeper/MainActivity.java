@@ -1,4 +1,4 @@
-package com.bunnysweeper.game;
+package com.hehe.Bunnyssweeper;
 
 import com.getcapacitor.BridgeActivity;
 

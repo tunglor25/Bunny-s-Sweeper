@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.bunnysweeper.game',
-  appName: 'BunnysSweeper',
+  appId: 'com.hehe.Bunnyssweeper',
+  appName: 'Bunny\'s Sweeper',
   webDir: 'dist',
   plugins: {
     AdMob: {
