@@ -3,7 +3,7 @@ import { Settings, Home, RefreshCw, Clock, Volume2, VolumeX, Sun, Moon } from 'l
 import './App.css';
 import { GameStage } from './components/GameStage';
 import { audio } from './logic/AudioEngine';
-import { AdMob, BannerAdSize, BannerAdPosition } from '@capacitor-community/admob';
+import { AdMob, BannerAdSize, BannerAdPosition, BannerAdPluginEvents } from '@capacitor-community/admob';
 import type { BannerAdOptions, RewardAdOptions } from '@capacitor-community/admob';
 
 import { translations, languages } from './translations';
@@ -221,20 +221,31 @@ function App() {
       // Banner Ad
       const options: BannerAdOptions = {
         adId: 'ca-app-pub-9818038428942167/2375638048',
-        adSize: BannerAdSize.ADAPTIVE_BANNER,
+        adSize: BannerAdSize.BANNER,
         position: BannerAdPosition.BOTTOM_CENTER,
         margin: 0,
         isTesting: false
       };
-      AdMob.showBanner(options);
+      
+      const loadBanner = () => {
+        AdMob.showBanner(options).catch(e => console.log('AdMob Show Error', e));
+      };
+      
+      loadBanner();
+
+      // Retry loading if banner fails (e.g. no fill or network issue)
+      AdMob.addListener(BannerAdPluginEvents.FailedToLoad, (error) => {
+        console.log('Banner failed to load:', error);
+        setTimeout(loadBanner, 15000); // retry after 15 seconds
+      });
 
       // Preload Reward Video Ad
       const rewardOptions: RewardAdOptions = {
         adId: 'ca-app-pub-9818038428942167/2125070616',
         isTesting: false
       };
-      AdMob.prepareRewardVideoAd(rewardOptions);
-    }).catch(e => console.log('AdMob Error', e));
+      AdMob.prepareRewardVideoAd(rewardOptions).catch(e => console.log('AdMob Reward Error', e));
+    }).catch(e => console.log('AdMob Init Error', e));
   }, []);
 
   // In-game state
