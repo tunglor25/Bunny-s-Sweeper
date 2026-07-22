@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Settings, Home, RefreshCw, Clock, Volume2, VolumeX, Sun, Moon } from 'lucide-react';
 import './App.css';
 import { GameStage } from './components/GameStage';
@@ -216,6 +216,7 @@ function App() {
     localStorage.setItem('nextAdShowCount', nextAdShowCount.toString());
   }, [nextAdShowCount]);
 
+  
   useEffect(() => {
     AdMob.initialize().then(() => {
       // Banner Ad
@@ -228,7 +229,9 @@ function App() {
       };
       
       const loadBanner = () => {
-        AdMob.showBanner(options).catch(e => console.log('AdMob Show Error', e));
+        if (!isHardModeRef.current) {
+          AdMob.showBanner(options).catch(e => console.log('AdMob Show Error', e));
+        }
       };
       
       loadBanner();
@@ -259,6 +262,25 @@ function App() {
   const [boardHeight, setBoardHeight] = useState(9);
   const [totalMines, setTotalMines] = useState(10);
   const [minesLeft, setMinesLeft] = useState(10);
+
+  const isHardMode = screen === 'PLAY' && totalMines === 70;
+  const isHardModeRef = useRef(isHardMode);
+
+  useEffect(() => {
+    isHardModeRef.current = isHardMode;
+    if (isHardMode) {
+      AdMob.hideBanner().catch(e => console.log('AdMob Hide Error', e));
+    } else {
+      const options: BannerAdOptions = {
+        adId: 'ca-app-pub-9818038428942167/2375638048',
+        adSize: BannerAdSize.BANNER,
+        position: BannerAdPosition.BOTTOM_CENTER,
+        margin: 0,
+        isTesting: false
+      };
+      AdMob.showBanner(options).catch(e => console.log('AdMob Show Error', e));
+    }
+  }, [isHardMode]);
 
   // Apply dark mode
   useEffect(() => {
@@ -442,7 +464,7 @@ function App() {
   );
 
   return (
-    <div className={`app-container ${screen === 'MENU' ? 'bg-menu' : ''} ${screen === 'PLAY' ? 'bg-play' : ''} ${gameOverStatus !== 'NONE' ? 'blur-bg' : ''}`}>
+    <div className={`app-container ${screen === 'MENU' ? 'bg-menu' : ''} ${screen === 'PLAY' ? 'bg-play' : ''} ${gameOverStatus !== 'NONE' ? 'blur-bg' : ''} ${isHardMode ? 'no-ad-padding' : ''}`}>
       {/* --- SPLASH SCREEN --- */}
       {screen === 'SPLASH' && (
         <div className="splash-screen fade-in">
