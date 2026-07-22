@@ -64,10 +64,17 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-image: url('/nen_mainmenu.png');
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
+}
+
+.bg-menu {
+  background-image: url('/nen_mainmenu.png');
+}
+
+.bg-play {
+  background-image: url('/nen_man_choi.png');
 }
 
 body.dark-mode .screen-container {
