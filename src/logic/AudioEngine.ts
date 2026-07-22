@@ -2,6 +2,7 @@
 class AudioEngine {
   private ctx: AudioContext | null = null;
   public enabled: boolean = true;
+  private bgmAudio: HTMLAudioElement | null = null;
 
   private init() {
     if (!this.ctx) {
@@ -9,6 +10,48 @@ class AudioEngine {
     }
     if (this.ctx.state === 'suspended') {
       this.ctx.resume();
+    }
+    if (this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+    if (!this.bgmAudio) {
+      this.bgmAudio = new Audio('/bgm.m4a');
+      this.bgmAudio.loop = true;
+      this.bgmAudio.volume = 0.4; // Lofi usually needs to be soft
+    }
+  }
+
+  public setEnabled(enabled: boolean) {
+    this.enabled = enabled;
+    if (!enabled) {
+      this.stopBGM();
+    } else {
+      this.playBGM();
+    }
+  }
+
+  public playBGM() {
+    if (!this.enabled) return;
+    this.init();
+    if (this.bgmAudio) {
+      this.bgmAudio.play().catch(e => {
+        console.log('Autoplay prevented, waiting for interaction:', e);
+        const playOnInteract = () => {
+          if (this.enabled && this.bgmAudio) {
+            this.bgmAudio.play().catch(() => {});
+          }
+          document.removeEventListener('click', playOnInteract);
+          document.removeEventListener('touchstart', playOnInteract);
+        };
+        document.addEventListener('click', playOnInteract);
+        document.addEventListener('touchstart', playOnInteract);
+      });
+    }
+  }
+
+  public stopBGM() {
+    if (this.bgmAudio) {
+      this.bgmAudio.pause();
     }
   }
 

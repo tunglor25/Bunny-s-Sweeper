@@ -185,7 +185,7 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('soundEnabled', soundEnabled.toString());
-    audio.enabled = soundEnabled;
+    audio.setEnabled(soundEnabled);
   }, [soundEnabled]);
 
   useEffect(() => {
