@@ -411,7 +411,7 @@ function App() {
   );
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${screen === 'MENU' ? 'bg-menu' : ''} ${screen === 'PLAY' ? 'bg-play' : ''} ${gameOverStatus !== 'NONE' ? 'blur-bg' : ''}`}>
       {/* --- SPLASH SCREEN --- */}
       {screen === 'SPLASH' && (
         <div className="splash-screen fade-in">
@@ -426,7 +426,7 @@ function App() {
 
       {/* --- MAIN MENU --- */}
       {screen === 'MENU' && (
-        <div className="screen-container bg-menu fade-in">
+        <div className="screen-container fade-in">
           <div style={{ position: 'absolute', top: '35px', right: '25px', zIndex: 10 }}>
             <button className="btn-icon" onClick={() => setShowSettings(true)}>
               <Settings size={28} />
@@ -472,7 +472,7 @@ function App() {
 
       {/* --- GAMEPLAY --- */}
       {screen === 'PLAY' && (
-        <div className="screen-container bg-play fade-in" style={{ justifyContent: 'flex-start', paddingTop: '25px', paddingBottom: '10px' }}>
+        <div className="screen-container fade-in" style={{ justifyContent: 'flex-start', paddingTop: '25px', paddingBottom: '10px' }}>
           
           {/* HEADER */}
           <div className="game-header glass-panel">

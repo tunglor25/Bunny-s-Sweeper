@@ -64,20 +64,24 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
+}
+
+.bg-menu {
+  background-image: url('/nen_mainmenu.png');
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
 }
 
-.bg-menu {
-  background-image: url('/nen_mainmenu.png');
-}
-
 .bg-play {
   background-image: url('/nen_man_choi.png');
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
 }
 
-body.dark-mode .screen-container {
+body.dark-mode .bg-menu,
+body.dark-mode .bg-play {
   /* Tối màu ảnh nền trong chế độ tối */
   background-color: #111827;
   background-blend-mode: overlay;
