@@ -249,6 +249,7 @@ function App() {
   }, []);
 
   // In-game state
+  const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [time, setTime] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [gameId, setGameId] = useState(Date.now()); // Used to reset GameStage
@@ -372,33 +373,19 @@ function App() {
             <span style={{ fontSize: '1.5rem' }}>🌐</span> {t('language')}
           </span>
           <div style={{ display: 'flex' }}>
-            <select 
-              value={language}
-              onChange={(e) => setLanguage(e.target.value as LangCode)}
+            <button 
+              onClick={() => setShowLanguageModal(true)}
               style={{
-                padding: '8px 30px 8px 12px',
-                borderRadius: '15px',
-                border: '2px solid #fbcfe8',
-                backgroundColor: '#fff',
-                color: '#4b5563',
-                fontWeight: 'bold',
-                fontSize: '1rem',
-                outline: 'none',
-                cursor: 'pointer',
-                appearance: 'none',
-                backgroundImage: 'url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ec4899%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E")',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'right 10px top 50%',
-                backgroundSize: '12px auto',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                display: 'flex', alignItems: 'center', gap: '8px',
+                padding: '8px 16px', borderRadius: '20px',
+                border: '2px solid #fbcfe8', backgroundColor: '#fdf2f8',
+                color: '#ec4899', fontWeight: 'bold', fontSize: '1rem',
+                boxShadow: '0 4px 6px -1px rgba(251, 207, 232, 0.5)',
+                cursor: 'pointer'
               }}
             >
-              {languages.map(lang => (
-                <option key={lang.code} value={lang.code}>
-                  {lang.flag} {lang.name}
-                </option>
-              ))}
-            </select>
+              {languages.find(l => l.code === language)?.flag} {languages.find(l => l.code === language)?.name}
+            </button>
           </div>
         </div>
 
@@ -416,6 +403,40 @@ function App() {
             {t('close')}
           </button>
         </div>
+      </div>
+    </div>
+  );
+
+  const LanguageModal = () => (
+    <div className="modal-overlay fade-in" style={{ zIndex: 4000 }}>
+      <div className="modal-content" style={{ maxWidth: '90%', width: '340px', maxHeight: '80vh', display: 'flex', flexDirection: 'column', padding: '25px', background: '#fff', borderRadius: '30px', border: '6px solid #fbcfe8', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '20px', fontSize: '1.5rem', color: '#ec4899', fontWeight: 900 }}>🌐 {t('language')}</h2>
+        
+        <div style={{ flex: 1, overflowY: 'auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', paddingBottom: '10px' }}>
+          {languages.map(lang => (
+            <button 
+              key={lang.code}
+              onClick={() => { setLanguage(lang.code); setShowLanguageModal(false); }}
+              style={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px',
+                padding: '15px 10px', borderRadius: '20px', cursor: 'pointer',
+                border: language === lang.code ? '3px solid #ec4899' : '2px solid #f3f4f6',
+                backgroundColor: language === lang.code ? '#fdf2f8' : '#fff',
+                color: language === lang.code ? '#ec4899' : '#4b5563',
+                fontWeight: 'bold', fontSize: '0.9rem',
+                boxShadow: language === lang.code ? '0 4px 10px rgba(236, 72, 153, 0.2)' : 'none',
+                transition: 'all 0.2s'
+              }}
+            >
+              <span style={{ fontSize: '2rem' }}>{lang.flag}</span>
+              <span style={{ textAlign: 'center' }}>{lang.name}</span>
+            </button>
+          ))}
+        </div>
+
+        <button className="btn-secondary" style={{ width: '100%', marginTop: '15px', justifyContent: 'center', border: 'none', flexShrink: 0 }} onClick={() => setShowLanguageModal(false)}>
+          {t('back')}
+        </button>
       </div>
     </div>
   );
@@ -475,7 +496,8 @@ function App() {
             <button className="bottom-pill pill-rules" onClick={() => setShowRules(true)}>📖 {t('gameRule')}</button>
           </div>
 
-          {showSettings && <SettingsModal />}
+          {showSettings && !showLanguageModal && <SettingsModal />}
+          {showLanguageModal && <LanguageModal />}
           {showRules && <RulesModal onClose={() => setShowRules(false)} t={t} />}
         </div>
       )}
@@ -559,7 +581,8 @@ function App() {
           )}
 
           {/* IN-GAME SETTINGS MODAL */}
-          {showSettings && <SettingsModal />}
+          {showSettings && !showLanguageModal && <SettingsModal />}
+          {showLanguageModal && <LanguageModal />}
         </div>
       )}
 
