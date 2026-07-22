@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { App as CapApp } from '@capacitor/app';
 import { Settings, Home, RefreshCw, Clock, Volume2, VolumeX, Sun, Moon } from 'lucide-react';
 import './App.css';
 import { GameStage } from './components/GameStage';
@@ -249,6 +250,21 @@ function App() {
       };
       AdMob.prepareRewardVideoAd(rewardOptions).catch(e => console.log('AdMob Reward Error', e));
     }).catch(e => console.log('AdMob Init Error', e));
+  }, []);
+
+  // Handle app background/foreground state to pause/resume BGM
+  useEffect(() => {
+    const listener = CapApp.addListener('appStateChange', ({ isActive }) => {
+      if (isActive) {
+        audio.resumeBGM();
+      } else {
+        audio.pauseBGM();
+      }
+    });
+
+    return () => {
+      listener.then(l => l.remove());
+    };
   }, []);
 
   // In-game state

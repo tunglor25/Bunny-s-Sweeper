@@ -49,9 +49,22 @@ class AudioEngine {
     }
   }
 
+  public pauseBGM() {
+    if (this.bgmAudio) {
+      this.bgmAudio.pause();
+    }
+  }
+
+  public resumeBGM() {
+    if (this.enabled && this.bgmAudio) {
+      this.bgmAudio.play().catch(() => {});
+    }
+  }
+
   public stopBGM() {
     if (this.bgmAudio) {
       this.bgmAudio.pause();
+      this.bgmAudio.currentTime = 0;
     }
   }
 
