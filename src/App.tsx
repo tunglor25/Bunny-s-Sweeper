@@ -6,66 +6,9 @@ import { audio } from './logic/AudioEngine';
 import { AdMob, BannerAdSize, BannerAdPosition } from '@capacitor-community/admob';
 import type { BannerAdOptions, RewardAdOptions } from '@capacitor-community/admob';
 
-const translations = {
-  vi: {
-    practice: 'TẬP SỰ',
-    normal: 'BÌNH THƯỜNG',
-    hard: 'KHÓ',
-    leaderboard: 'Bảng Xếp Hạng',
-    gameRule: 'LUẬT CHƠI',
-    settings: 'Cài Đặt',
-    sound: 'Âm thanh',
-    vibration: 'Rung',
-    darkMode: 'Nền tối',
-    language: 'Ngôn ngữ',
-    backToMenu: 'Về Màn Hình Chính',
-    close: 'Đóng',
-    speech: 'Đào cỏ thu hoạch cà rốt, cẩn thận đừng chạm vào các bé Chuột nha!',
-    win: 'Thắng Rồi! 🎉',
-    lose: 'Bùm!',
-    time: 'Thời gian:',
-    playAgain: 'Chơi Lại',
-    ruleTitle1: 'Cách Đào Đất',
-    ruleContent1: 'Chạm 1 lần vào ô cỏ để đào đất tìm cà rốt. Cẩn thận đừng chạm phải Chuột nha!',
-    ruleTitle2: 'Cách Đọc Số',
-    ruleContent2: 'Số 1 cho biết có ĐÚNG 1 bé Chuột đang lẩn trốn ở 8 ô cỏ xung quanh nó.',
-    ruleTitle3: 'Cắm Cờ',
-    ruleContent3: 'Nhấn giữ (Long press) để cắm cờ đánh dấu ô có chuột. Đào hết cỏ an toàn là Thắng!',
-    back: 'Trở lại',
-    next: 'Tiếp',
-    gotIt: 'Đã hiểu!',
-  },
-  en: {
-    practice: 'PRACTICE',
-    normal: 'NORMAL',
-    hard: 'HARD',
-    leaderboard: 'Leaderboard',
-    gameRule: 'GAME RULE',
-    settings: 'Settings',
-    sound: 'Sound',
-    vibration: 'Vibration',
-    darkMode: 'Dark Mode',
-    language: 'Language',
-    backToMenu: 'Main Menu',
-    close: 'Close',
-    speech: 'Dig grass to harvest carrots, but be careful not to touch the Moles!',
-    win: 'You Win! 🎉',
-    lose: 'Boom!',
-    time: 'Time:',
-    playAgain: 'Play Again',
-    ruleTitle1: 'How to Dig',
-    ruleContent1: 'Tap once on a grass tile to dig for carrots. Be careful not to hit a Mole!',
-    ruleTitle2: 'How to Read Numbers',
-    ruleContent2: 'A number 1 means there is EXACTLY 1 Mole hiding in the 8 surrounding tiles.',
-    ruleTitle3: 'Flagging',
-    ruleContent3: 'Long press to plant a flag and mark a Mole. Clear all safe grass to Win!',
-    back: 'Back',
-    next: 'Next',
-    gotIt: 'Got It!',
-  }
-};
-type Lang = keyof typeof translations;
-type TranslationKey = keyof typeof translations['vi'];
+import { translations, languages } from './translations';
+import type { LangCode } from './translations';
+type TranslationKey = keyof typeof translations['en'];
 // --- SVG Mascot Component ---
 const BunnyFace = ({ expression, color }: { expression: 'happy' | 'neutral' | 'intense', color: string }) => {
   return (
@@ -295,7 +238,7 @@ function App() {
   const [soundEnabled, setSoundEnabled] = useState(() => localStorage.getItem('soundEnabled') !== 'false');
   const [hapticEnabled, setHapticEnabled] = useState(() => localStorage.getItem('hapticEnabled') !== 'false');
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem('darkMode') === 'true');
-  const [language, setLanguage] = useState<Lang>(() => (localStorage.getItem('language') as Lang) || 'vi');
+  const [language, setLanguage] = useState<LangCode>(() => (localStorage.getItem('language') as LangCode) || 'en');
 
   const t = (key: TranslationKey) => translations[language][key];
 
@@ -476,19 +419,35 @@ function App() {
           <span style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#4b5563' }}>
             <span style={{ fontSize: '1.5rem' }}>🌐</span> {t('language')}
           </span>
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <button 
-              style={{ padding: '5px 15px', borderRadius: '15px', border: '2px solid', borderColor: language === 'vi' ? '#ec4899' : '#e5e7eb', background: language === 'vi' ? '#fbcfe8' : 'transparent', fontWeight: 'bold', color: '#4b5563', cursor: 'pointer' }}
-              onClick={() => setLanguage('vi')}
+          <div style={{ display: 'flex', flex: 1 }}>
+            <select 
+              value={language}
+              onChange={(e) => setLanguage(e.target.value as LangCode)}
+              style={{
+                width: '100%',
+                padding: '10px 15px',
+                borderRadius: '15px',
+                border: '2px solid #fbcfe8',
+                backgroundColor: '#fff',
+                color: '#4b5563',
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                outline: 'none',
+                cursor: 'pointer',
+                appearance: 'none',
+                backgroundImage: 'url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ec4899%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E")',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'right 15px top 50%',
+                backgroundSize: '12px auto',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+              }}
             >
-              VI
-            </button>
-            <button 
-              style={{ padding: '5px 15px', borderRadius: '15px', border: '2px solid', borderColor: language === 'en' ? '#ec4899' : '#e5e7eb', background: language === 'en' ? '#fbcfe8' : 'transparent', fontWeight: 'bold', color: '#4b5563', cursor: 'pointer' }}
-              onClick={() => setLanguage('en')}
-            >
-              EN
-            </button>
+              {languages.map(lang => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.flag} {lang.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
