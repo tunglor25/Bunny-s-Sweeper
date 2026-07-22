@@ -22,6 +22,9 @@ export type LangCode = typeof languages[number]['code'];
 
 export const translations: Record<LangCode, Record<string, string>> = {
   en: {
+    practiceSub: 'Learn the basics',
+    normalSub: 'Classic challenge',
+    hardSub: 'For expert players',
     practice: 'PRACTICE',
     normal: 'NORMAL',
     hard: 'HARD',
@@ -50,6 +53,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: 'Got It!'
   },
   vi: {
+    practiceSub: 'Học cách chơi',
+    normalSub: 'Thử thách cơ bản',
+    hardSub: 'Dành cho cao thủ',
     practice: 'TẬP SỰ',
     normal: 'BÌNH THƯỜNG',
     hard: 'KHÓ',
@@ -78,6 +84,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: 'Đã hiểu!'
   },
   es: {
+    practiceSub: 'Aprende lo básico',
+    normalSub: 'Desafío clásico',
+    hardSub: 'Para expertos',
     practice: 'PRÁCTICA',
     normal: 'NORMAL',
     hard: 'DIFÍCIL',
@@ -106,6 +115,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: '¡Entendido!'
   },
   fr: {
+    practiceSub: 'Apprenez les bases',
+    normalSub: 'Défi classique',
+    hardSub: 'Pour les experts',
     practice: 'PRATIQUE',
     normal: 'NORMAL',
     hard: 'DIFFICILE',
@@ -134,6 +146,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: 'Compris !'
   },
   de: {
+    practiceSub: 'Grundlagen lernen',
+    normalSub: 'Klassische Herausforderung',
+    hardSub: 'Für Profis',
     practice: 'ÜBUNG',
     normal: 'NORMAL',
     hard: 'SCHWER',
@@ -162,6 +177,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: 'Verstanden!'
   },
   it: {
+    practiceSub: 'Impara le basi',
+    normalSub: 'Sfida classica',
+    hardSub: 'Per esperti',
     practice: 'PRATICA',
     normal: 'NORMALE',
     hard: 'DIFFICILE',
@@ -190,6 +208,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: 'Capito!'
   },
   pt: {
+    practiceSub: 'Aprenda o básico',
+    normalSub: 'Desafio clássico',
+    hardSub: 'Para especialistas',
     practice: 'PRÁTICA',
     normal: 'NORMAL',
     hard: 'DIFÍCIL',
@@ -218,6 +239,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: 'Entendi!'
   },
   ru: {
+    practiceSub: 'Изучите основы',
+    normalSub: 'Классика',
+    hardSub: 'Для экспертов',
     practice: 'ПРАКТИКА',
     normal: 'НОРМАЛЬНО',
     hard: 'СЛОЖНО',
@@ -246,6 +270,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: 'Понятно!'
   },
   zh: {
+    practiceSub: '学习基础',
+    normalSub: '经典挑战',
+    hardSub: '高手进阶',
     practice: '练习',
     normal: '普通',
     hard: '困难',
@@ -274,6 +301,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: '明白了！'
   },
   ja: {
+    practiceSub: '基本を学ぶ',
+    normalSub: 'クラシックな挑戦',
+    hardSub: '上級者向け',
     practice: '練習',
     normal: '普通',
     hard: '難しい',
@@ -302,6 +332,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: 'わかった！'
   },
   ko: {
+    practiceSub: '기본 배우기',
+    normalSub: '클래식 도전',
+    hardSub: '전문가용',
     practice: '연습',
     normal: '보통',
     hard: '어려움',
@@ -330,6 +363,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: '알겠어요!'
   },
   ar: {
+    practiceSub: 'تعلم الأساسيات',
+    normalSub: 'تحدي كلاسيكي',
+    hardSub: 'للخبراء',
     practice: 'تدريب',
     normal: 'عادي',
     hard: 'صعب',
@@ -358,6 +394,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: 'فهمت!'
   },
   hi: {
+    practiceSub: 'मूल बातें सीखें',
+    normalSub: 'क्लासिक चुनौती',
+    hardSub: 'विशेषज्ञों के लिए',
     practice: 'अभ्यास',
     normal: 'सामान्य',
     hard: 'कठिन',
@@ -386,6 +425,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: 'समझ गया!'
   },
   id: {
+    practiceSub: 'Pelajari dasarnya',
+    normalSub: 'Tantangan klasik',
+    hardSub: 'Untuk ahli',
     practice: 'LATIHAN',
     normal: 'NORMAL',
     hard: 'SULIT',
@@ -414,6 +456,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: 'Mengerti!'
   },
   th: {
+    practiceSub: 'เรียนรู้พื้นฐาน',
+    normalSub: 'ความท้าทายคลาสสิก',
+    hardSub: 'สำหรับผู้เชี่ยวชาญ',
     practice: 'ฝึกซ้อม',
     normal: 'ปานกลาง',
     hard: 'ยาก',
@@ -442,6 +487,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: 'เข้าใจแล้ว!'
   },
   tr: {
+    practiceSub: 'Temelleri öğren',
+    normalSub: 'Klasik meydan okuma',
+    hardSub: 'Uzmanlar için',
     practice: 'ALIŞTIRMA',
     normal: 'NORMAL',
     hard: 'ZOR',
@@ -470,6 +518,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     gotIt: 'Anladım!'
   },
   pl: {
+    practiceSub: 'Poznaj podstawy',
+    normalSub: 'Klasyczne wyzwanie',
+    hardSub: 'Dla ekspertów',
     practice: 'TRENING',
     normal: 'NORMALNY',
     hard: 'TRUDNY',

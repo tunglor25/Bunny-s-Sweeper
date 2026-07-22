@@ -486,30 +486,48 @@ function App() {
       {/* --- MAIN MENU --- */}
       {screen === 'MENU' && (
         <div className="screen-container fade-in">
-          <div style={{ position: 'absolute', top: '25px', right: '20px' }}>
-            <button className="btn-icon" onClick={() => setShowSettings(true)} style={{ background: 'transparent', border: 'none', boxShadow: 'none' }}>
-              <Settings size={28} color="#9ca3af" />
+          <div style={{ position: 'absolute', top: '35px', right: '25px', zIndex: 10 }}>
+            <button className="btn-icon" onClick={() => setShowSettings(true)}>
+              <Settings size={28} />
             </button>
           </div>
 
           <button className="menu-btn menu-btn-practice" onClick={() => startGame(9, 9, 10)}>
-            <BunnyFace expression="happy" color="#34d399" />
-            <span className="menu-btn-text">{t('practice')}</span>
+            <div className="menu-btn-mascot">
+              <BunnyFace expression="happy" color="#10b981" />
+            </div>
+            <div className="menu-btn-text-container">
+              <span className="menu-btn-text">{t('practice')}</span>
+              <div className="menu-btn-divider"><span className="menu-btn-carrot">🥕</span></div>
+              <span className="menu-btn-subtext">{t('practiceSub')}</span>
+            </div>
           </button>
           
           <button className="menu-btn menu-btn-normal" onClick={() => startGame(12, 16, 30)}>
-            <BunnyFace expression="neutral" color="#fbbf24" />
-            <span className="menu-btn-text">{t('normal')}</span>
+            <div className="menu-btn-mascot">
+              <BunnyFace expression="neutral" color="#f59e0b" />
+            </div>
+            <div className="menu-btn-text-container">
+              <span className="menu-btn-text">{t('normal')}</span>
+              <div className="menu-btn-divider"><span className="menu-btn-carrot">🥕</span></div>
+              <span className="menu-btn-subtext">{t('normalSub')}</span>
+            </div>
           </button>
 
           <button className="menu-btn menu-btn-hard" onClick={() => startGame(16, 24, 70)}>
-            <BunnyFace expression="intense" color="#fb7185" />
-            <span className="menu-btn-text">{t('hard')}</span>
+            <div className="menu-btn-mascot">
+              <BunnyFace expression="intense" color="#e11d48" />
+            </div>
+            <div className="menu-btn-text-container">
+              <span className="menu-btn-text">{t('hard')}</span>
+              <div className="menu-btn-divider"><span className="menu-btn-carrot">🥕</span></div>
+              <span className="menu-btn-subtext">{t('hardSub')}</span>
+            </div>
           </button>
 
           <div className="bottom-pill-container">
-            <button className="bottom-pill pill-leaderboard">{t('leaderboard')}</button>
-            <button className="bottom-pill pill-rules" onClick={() => setShowRules(true)}>{t('gameRule')}</button>
+            <button className="bottom-pill pill-leaderboard">🏆 {t('leaderboard')}</button>
+            <button className="bottom-pill pill-rules" onClick={() => setShowRules(true)}>📖 {t('gameRule')}</button>
           </div>
 
           {showSettings && <SettingsModal />}
