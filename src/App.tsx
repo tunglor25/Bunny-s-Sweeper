@@ -6,7 +6,6 @@ import { GameStage } from './components/GameStage';
 import { audio } from './logic/AudioEngine';
 import { AdMob, BannerAdSize, BannerAdPosition, BannerAdPluginEvents } from '@capacitor-community/admob';
 import type { BannerAdOptions, RewardAdOptions } from '@capacitor-community/admob';
-import confetti from 'canvas-confetti';
 
 import { translations, languages } from './translations';
 import type { LangCode } from './translations';
@@ -344,47 +343,6 @@ function App() {
 
   const handleGameOver = (win: boolean) => {
     setIsTimerRunning(false);
-
-    // Trigger Particles
-    if (win) {
-      // Confetti effect for Win
-      const duration = 2500;
-      const end = Date.now() + duration;
-
-      const frame = () => {
-        confetti({
-          particleCount: 6,
-          angle: 60,
-          spread: 55,
-          origin: { x: 0 },
-          colors: ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
-        });
-        confetti({
-          particleCount: 6,
-          angle: 120,
-          spread: 55,
-          origin: { x: 1 },
-          colors: ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
-        });
-
-        if (Date.now() < end) {
-          requestAnimationFrame(frame);
-        }
-      };
-      frame();
-    } else {
-      // Explosion effect for Lose
-      confetti({
-        particleCount: 150,
-        spread: 120,
-        origin: { y: 0.6 },
-        colors: ['#ff0000', '#ff8800', '#ffff00', '#333333'],
-        startVelocity: 45,
-        gravity: 0.8,
-        ticks: 200,
-        shapes: ['square']
-      });
-    }
 
     // Add a 1.2s delay before showing the modal so the player can see the board and avoid accidental clicks
     setTimeout(() => {
