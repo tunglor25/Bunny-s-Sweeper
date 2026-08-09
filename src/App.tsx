@@ -5,7 +5,7 @@ import './App.css';
 import { GameStage } from './components/GameStage';
 import { audio } from './logic/AudioEngine';
 import { AdMob, BannerAdSize, BannerAdPosition, BannerAdPluginEvents } from '@capacitor-community/admob';
-import type { BannerAdOptions, AdOptions } from '@capacitor-community/admob';
+import type { BannerAdOptions, RewardAdOptions } from '@capacitor-community/admob';
 import confetti from 'canvas-confetti';
 
 import { translations, languages } from './translations';
@@ -244,12 +244,12 @@ function App() {
         setTimeout(loadBanner, 15000); // retry after 15 seconds
       });
 
-      // Preload Interstitial Ad
-      const interstitialOptions: AdOptions = {
-        adId: 'ca-app-pub-9818038428942167/2125070616', // Ensure this ID is an Interstitial Ad unit in AdMob!
+      // Preload Reward Video Ad (for Rewarded Interstitial)
+      const rewardOptions: RewardAdOptions = {
+        adId: 'ca-app-pub-9818038428942167/2125070616', // Rewarded Interstitial ID
         isTesting: false
       };
-      AdMob.prepareInterstitial(interstitialOptions).catch(e => console.log('AdMob Interstitial Error', e));
+      AdMob.prepareRewardVideoAd(rewardOptions).catch(e => console.log('AdMob Reward Error', e));
     }).catch(e => console.log('AdMob Init Error', e));
   }, []);
 
@@ -396,9 +396,9 @@ function App() {
     // Show Ad logic
     if (gamesPlayed >= nextAdShowCount) {
       try {
-        await AdMob.showInterstitial();
+        await AdMob.showRewardVideoAd();
         // Preload next ad
-        AdMob.prepareInterstitial({ adId: 'ca-app-pub-9818038428942167/2125070616', isTesting: false });
+        AdMob.prepareRewardVideoAd({ adId: 'ca-app-pub-9818038428942167/2125070616', isTesting: false });
       } catch (e) {
         console.log('Error showing ad', e);
       }
