@@ -508,7 +508,7 @@ function App() {
       {/* --- MAIN MENU --- */}
       {screen === 'MENU' && (
         <div className="screen-container fade-in">
-          <div style={{ position: 'absolute', top: '35px', right: '25px', zIndex: 10 }}>
+          <div style={{ position: 'absolute', top: 'calc(env(safe-area-inset-top, 25px) + 25px)', right: '25px', zIndex: 10 }}>
             <button className="btn-icon" onClick={() => setShowSettings(true)}>
               <Settings size={28} />
             </button>

@@ -7,6 +7,10 @@ const config: CapacitorConfig = {
   plugins: {
     AdMob: {
       appId: 'ca-app-pub-9818038428942167~6307144192',
+    },
+    StatusBar: {
+      overlaysWebView: true,
+      style: 'DARK'
     }
   }
 };
