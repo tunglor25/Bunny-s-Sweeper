@@ -50,7 +50,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     ruleContent3: 'Long press to plant a flag and mark a Mole. Clear all safe grass to Win!',
     back: 'Back',
     next: 'Next',
-    gotIt: 'Got It!'
+    gotIt: 'Got It!',
+    paused: 'PAUSED',
+    resume: 'Resume'
   },
   vi: {
     practiceSub: 'Học cách chơi',
@@ -81,7 +83,9 @@ export const translations: Record<LangCode, Record<string, string>> = {
     ruleContent3: 'Nhấn giữ (Long press) để cắm cờ đánh dấu ô có chuột. Đào hết cỏ an toàn là Thắng!',
     back: 'Trở lại',
     next: 'Tiếp',
-    gotIt: 'Đã hiểu!'
+    gotIt: 'Đã hiểu!',
+    paused: 'TẠM DỪNG',
+    resume: 'Tiếp Tục'
   },
   es: {
     practiceSub: 'Aprende lo básico',

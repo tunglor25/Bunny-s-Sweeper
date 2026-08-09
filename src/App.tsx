@@ -6,6 +6,7 @@ import { GameStage } from './components/GameStage';
 import { audio } from './logic/AudioEngine';
 import { AdMob, BannerAdSize, BannerAdPosition, BannerAdPluginEvents } from '@capacitor-community/admob';
 import type { BannerAdOptions, AdOptions } from '@capacitor-community/admob';
+import confetti from 'canvas-confetti';
 
 import { translations, languages } from './translations';
 import type { LangCode } from './translations';
@@ -252,13 +253,23 @@ function App() {
     }).catch(e => console.log('AdMob Init Error', e));
   }, []);
 
-  // Handle app background/foreground state to pause/resume BGM
+  const currentScreenRef = useRef(screen);
+  const currentGameOverStatusRef = useRef(gameOverStatus);
+  useEffect(() => {
+    currentScreenRef.current = screen;
+    currentGameOverStatusRef.current = gameOverStatus;
+  }, [screen, gameOverStatus]);
+
+  // Handle app background/foreground state to pause/resume BGM and Game
   useEffect(() => {
     const listener = CapApp.addListener('appStateChange', ({ isActive }) => {
       if (isActive) {
         audio.resumeBGM();
       } else {
         audio.pauseBGM();
+        if (currentScreenRef.current === 'PLAY' && currentGameOverStatusRef.current === 'NONE') {
+          setIsPaused(true);
+        }
       }
     });
 
@@ -271,6 +282,7 @@ function App() {
   const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [time, setTime] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [gameId, setGameId] = useState(Date.now()); // Used to reset GameStage
   
   // Difficulty settings
@@ -320,18 +332,60 @@ function App() {
   // Handle Timer
   useEffect(() => {
     let interval: number | undefined;
-    if (isTimerRunning && gameOverStatus === 'NONE' && screen === 'PLAY') {
+    if (isTimerRunning && gameOverStatus === 'NONE' && screen === 'PLAY' && !isPaused) {
       interval = window.setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
-    } else if (!isTimerRunning || gameOverStatus !== 'NONE' || screen !== 'PLAY') {
+    } else {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [isTimerRunning, gameOverStatus, screen]);
+  }, [isTimerRunning, gameOverStatus, screen, isPaused]);
 
   const handleGameOver = (win: boolean) => {
     setIsTimerRunning(false);
+
+    // Trigger Particles
+    if (win) {
+      // Confetti effect for Win
+      const duration = 2500;
+      const end = Date.now() + duration;
+
+      const frame = () => {
+        confetti({
+          particleCount: 6,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
+        });
+        confetti({
+          particleCount: 6,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      };
+      frame();
+    } else {
+      // Explosion effect for Lose
+      confetti({
+        particleCount: 150,
+        spread: 120,
+        origin: { y: 0.6 },
+        colors: ['#ff0000', '#ff8800', '#ffff00', '#333333'],
+        startVelocity: 45,
+        gravity: 0.8,
+        ticks: 200,
+        shapes: ['square']
+      });
+    }
+
     // Add a 1.2s delay before showing the modal so the player can see the board and avoid accidental clicks
     setTimeout(() => {
       setGameOverStatus(win ? 'WIN' : 'LOSE');
@@ -612,6 +666,38 @@ function App() {
                   </button>
                   <button className="btn-secondary" style={{ margin: '0 auto', width: '100%', justifyContent: 'center', border: 'none' }} onClick={() => setScreen('MENU')}>
                     <Home size={24} /> {t('backToMenu')}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* PAUSE MODAL */}
+          {isPaused && (
+            <div className="modal-overlay fade-in" style={{ zIndex: 2000, backdropFilter: 'blur(10px)' }}>
+              <div 
+                className="modal-content" 
+                style={{ 
+                  textAlign: 'center', 
+                  maxWidth: '90%', 
+                  width: '320px', 
+                  padding: '45px 30px 30px 30px', 
+                  background: '#fff', 
+                  borderRadius: '30px', 
+                  border: '6px solid #fbcfe8', 
+                  position: 'relative', 
+                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' 
+                }}
+              >
+                <div style={{ position: 'absolute', top: '-60px', left: '50%', transform: 'translateX(-50%)', width: '80px', height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center', filter: 'drop-shadow(0px 10px 5px rgba(0,0,0,0.2))' }}>
+                  <span style={{ fontSize: '70px' }}>😴</span>
+                </div>
+                <h2 style={{ fontSize: '2.2rem', marginBottom: '15px', color: '#ec4899', fontWeight: 900 }}>
+                  {t('paused') || 'PAUSED'}
+                </h2>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <button className="btn-primary" style={{ margin: '0 auto', width: '100%', justifyContent: 'center', backgroundColor: '#3b82f6', color: 'white', boxShadow: '0 4px 0 #2563eb', border: 'none' }} onClick={() => setIsPaused(false)}>
+                    ▶️ {t('resume') || 'Resume'}
                   </button>
                 </div>
               </div>
